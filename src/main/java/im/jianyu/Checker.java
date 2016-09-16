@@ -11,6 +11,7 @@ import org.apache.http.client.fluent.Request;
 import org.apache.http.message.BasicNameValuePair;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -67,9 +68,14 @@ public class Checker {
             .setHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
 
         while (true) {
-
-            String json = availabilityGet.execute().returnContent().asString(StandardCharsets.UTF_8);
-            // System.out.println(json);
+            String json;
+            try {
+                json = availabilityGet.execute().returnContent().asString(StandardCharsets.UTF_8);
+                // System.out.println(json);
+            } catch (UnknownHostException e) {
+                System.err.println(e.getLocalizedMessage());
+                continue;
+            }
 
             // 处理Json字符串结果
             JSONObject jsonObject = JSON.parseObject(json);
