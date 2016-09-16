@@ -86,6 +86,10 @@ public class Checker {
                     // 查找有货
                     for (String partNumber : retailStoreProducts.keySet()) {
                         String phoneName = iPhone7ModalExtractor.getProductDesc(partNumber);
+                        if ("No Such Product".equals(phoneName)) {
+                            // timeSlot
+                            continue;
+                        }
                         if (phoneName != null && retailStoreProducts.getString(partNumber).equals("ALL")) {
 
                             // 匹配查找心愿iPhone
