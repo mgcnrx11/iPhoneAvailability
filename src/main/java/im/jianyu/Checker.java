@@ -10,6 +10,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.message.BasicNameValuePair;
 
+import javax.net.ssl.SSLHandshakeException;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
@@ -72,7 +73,7 @@ public class Checker {
             try {
                 json = availabilityGet.execute().returnContent().asString(StandardCharsets.UTF_8);
                 // System.out.println(json);
-            } catch (UnknownHostException e) {
+            } catch (UnknownHostException | SSLHandshakeException e) {
                 System.err.println(e.getLocalizedMessage());
                 continue;
             }
