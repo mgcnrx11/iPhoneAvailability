@@ -42,9 +42,9 @@ public class Checker {
         // iPhone 7 Plus 128G all color
         "MNFU2CH/A", // 亮黑
         "MNFP2CH/A", // 黑
-        "MNFR2CH/A", // 金
-        "MNFT2CH/A", // 玫瑰金
-        "MNFQ2CH/A"  // 银
+//        "MNFR2CH/A", // 金
+//        "MNFT2CH/A", // 玫瑰金
+//        "MNFQ2CH/A"  // 银
     };
 
     private static ExecutorService executorService = Executors.newSingleThreadExecutor();
@@ -107,6 +107,7 @@ public class Checker {
                                     // 首先判断是否在Calm Down
                                     Long lastPostTimestamp = serverChanSentTimestampMap.get(String.join(key, partNumber));
                                     if (lastPostTimestamp != null && System.currentTimeMillis() - lastPostTimestamp <= 300 * 1000) {
+                                        // Server酱：CD要5分钟
                                         return;
                                     }
 
@@ -147,11 +148,11 @@ public class Checker {
 
             // 若availability.json没有updated字段
             if (updatedTime == null) {
-                System.out.println("Server最后更新时间： Missing");
+                System.out.println("AppleServer最后更新时间： Missing");
             } else {
-                System.out.println("Server最后更新时间：" + updatedTime.format(formatter));
+                System.out.println("AppleServer最后更新时间：" + updatedTime.format(formatter));
             }
-            System.out.println("最后更新时间：" + LocalDateTime.now(ZoneOffset.of("+8")).format(formatter));
+            System.out.println("Checker最后更新时间：" + LocalDateTime.now(ZoneOffset.of("+8")).format(formatter));
 
             //TODO sleep逻辑可以根据更新时间和热点时间调整
             sleep(3000);
