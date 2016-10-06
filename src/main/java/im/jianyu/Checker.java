@@ -41,7 +41,7 @@ public class Checker {
 //        "MNH12CH/A", // iPhone 7 128GB 玫瑰金色
         // iPhone 7 Plus 128G all color
         "MNFU2CH/A", // 亮黑
-        "MNFP2CH/A", // 黑
+//        "MNFP2CH/A", // 黑
 //        "MNFR2CH/A", // 金
 //        "MNFT2CH/A", // 玫瑰金
 //        "MNFQ2CH/A"  // 银
@@ -132,6 +132,22 @@ public class Checker {
                                     }
 
                                 });
+
+                                // macOS的通知中心
+                                if (System.getProperty("os.name").toLowerCase().contains("mac")) {
+                                    executorService.submit(() -> {
+                                        try {
+                                            Runtime.getRuntime().exec(new String[]
+                                                { "osascript", "-e",
+                                                    "display notification \"" + phoneName +" 有货啦\" " +
+                                                    "with title \"iPhone Checker\" " +
+                                                    "subtitle \"" + CNStoreExtractor.getFullStoreName(key) + "\"" +
+                                                    "sound name \"Unknown\"" });
+                                        } catch (IOException e) {
+                                            System.err.println("Notification Center invoke failed.");
+                                        }
+                                    });
+                                }
 
                             } else {
                                 System.out.println(phoneName + "  有货");
